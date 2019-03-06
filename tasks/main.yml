@@ -1,0 +1,20 @@
+---
+# tasks file for mrleerkotte.unifi
+- name: Add Unifi GPG key to apt
+  apt_key:
+    keyserver: "{{ unifi_apt_key_server }}"
+    id: "{{ unifi_apt_key_id }}"
+
+- name: Add Unifi apt repository
+  apt_repository:
+    repo: "{{ unifi_apt_repo }}"
+    filename: "{{ unifi_apt_repo_filename }}"
+    state: present
+
+- name: Add Unifi prerequisites
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  with_items: "{{ unifi_prerequisites }}"

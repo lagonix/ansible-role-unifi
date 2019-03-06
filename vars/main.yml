@@ -1,0 +1,8 @@
+---
+# vars file for mrleerkotte.unifi
+unifi_apt_repo: "deb http://www.ui.com/downloads/unifi/debian stable ubiquiti"
+unifi_apt_repo_filename: "100-ubnt-unifi"
+
+unifi_apt_key_server: "keyserver.ubuntu.com"
+unifi_apt_key_id: "06E85760C0A52C50"
+
