@@ -3,6 +3,19 @@
 unifi_apt_repo: "deb http://www.ui.com/downloads/unifi/debian stable ubiquiti"
 unifi_apt_repo_filename: "100-ubnt-unifi"
 
+unifi_mongodb_apt_repo: "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse"
+unifi_mongodb_apt_repo_filename: "mongodb-org-3.4"
+
 unifi_apt_key_server: "keyserver.ubuntu.com"
 unifi_apt_key_id: "06E85760C0A52C50"
+
+unifi_mongodb_apt_key_server: "keyserver.ubuntu.com"
+unifi_mongodb_apt_key_id: "0C49F3730359A14518585931BC711F9BA15703C6"
+
+unifi_prerequisites:
+  - apt-transport-https
+
+unifi_package_name: unifi
+
+
 

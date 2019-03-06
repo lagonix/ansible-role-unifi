@@ -18,3 +18,16 @@
     update_cache: yes
     cache_valid_time: 3600
   with_items: "{{ unifi_prerequisites }}"
+
+- name: Add MongoDB GPG key to apt
+  apt_key:
+    keyserver: "{{ unifi_mongodb_apt_key_server }}"
+    id: "{{ unifi_mongodb_apt_key_id }}"
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'bionic'
+
+- name: Ubuntu Bionic detected: add MongoDB apt repository
+  apt_repository:
+    repo: "{{ unifi_mongodb_apt_repo }}"
+    filename: "{{ unifi_mongodb_apt_repo_filename }}"
+    state: present
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'bionic'
