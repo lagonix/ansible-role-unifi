@@ -1,33 +1,41 @@
 ---
 # tasks file for mrleerkotte.unifi
-- name: Add Unifi GPG key to apt
+- name: Add unifi gpg key to apt
   apt_key:
     keyserver: "{{ unifi_apt_key_server }}"
     id: "{{ unifi_apt_key_id }}"
 
-- name: Add Unifi apt repository
+- name: Add unifi repository to apt
   apt_repository:
     repo: "{{ unifi_apt_repo }}"
     filename: "{{ unifi_apt_repo_filename }}"
     state: present
 
-- name: Add Unifi prerequisites
+- name: Install unifi prerequisites
+  with_items: "{{ unifi_prerequisites }}"
   apt:
     name: "{{ item }}"
     state: present
     update_cache: yes
     cache_valid_time: 3600
-  with_items: "{{ unifi_prerequisites }}"
 
-- name: Add MongoDB GPG key to apt
+- name: Ubuntu Bionic detected add MongoDB gpg key to apt
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'bionic'
   apt_key:
     keyserver: "{{ unifi_mongodb_apt_key_server }}"
     id: "{{ unifi_mongodb_apt_key_id }}"
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'bionic'
 
-- name: Ubuntu Bionic detected: add MongoDB apt repository
+- name: Ubuntu Bionic detected add MongoDB repository to apt
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'bionic'
   apt_repository:
     repo: "{{ unifi_mongodb_apt_repo }}"
     filename: "{{ unifi_mongodb_apt_repo_filename }}"
     state: present
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'bionic'
+
+- name: Install unifi package
+  apt:
+    name: "{{ unifi_package_name }}"
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+

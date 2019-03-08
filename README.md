@@ -1,38 +1,81 @@
-Role Name
+ansible-role-unifi
 =========
 
-A brief description of the role goes here.
+Installs Ubiquiti Unifi controller.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Currently there are no requirements.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Available variables are listed below,
+
+    apt_key_server: "hkp://keyserver.ubuntu.com:80"
+
+Specify keyserver to use.
+
+    unifi_apt_repo: "deb http://www.ui.com/downloads/unifi/debian stable ubiquiti"
+
+Specify unifi apt repository.
+
+    unifi_apt_repo_filename: "100-ubnt-unifi"
+
+Specify unifi apt repository filename.
+
+    unifi_mongodb_apt_repo: "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse"
+
+Specify mongodb apt repository.
+
+    unifi_mongodb_apt_repo_filename: "mongodb-org-3.4"
+
+Specify mongodb apt repository filename.
+
+    unifi_apt_key_server: "{{ apt_key_server }}"
+
+Set key server for unifi task to apt_key_server.
+
+    unifi_apt_key_id: "06E85760C0A52C50"
+
+Specify current unifi gpg key id.
+
+    unifi_mongodb_apt_key_server: "{{ apt_key_server }}"
+
+Set key server for mongodb task to apt_key_server.
+
+    unifi_mongodb_apt_key_id: "0C49F3730359A14518585931BC711F9BA15703C6"
+
+Specify current mongodb gpg key id.
+
+    unifi_prerequisites:
+        - apt-transport-https
+
+Specify list of prerequisites.
+
+    unifi_package_name: unifi
+
+Specify unifi package name.
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: mrleerkotte.unifi }
 
 License
 -------
 
-BSD
+BSD-3
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+This role was created in 2019 by [Marlon Leerkotte](https://linkedin.com/in/marlonleerkotte).
