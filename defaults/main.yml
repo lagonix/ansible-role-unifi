@@ -1,6 +1,6 @@
 ---
 # defaults file for mrleerkotte.unifi
-unifi_custom_certificate: false
+unifi_custom_certificate: False
 unifi_keystore_path: ''
 unifi_keystore_remote_path: '/var/lib/unifi/keystore'
 

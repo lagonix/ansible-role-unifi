@@ -40,7 +40,7 @@
     cache_valid_time: 3600
 
 - name: Copy keystore file
-  when: unifi_custom_certificate == true
+  when: unifi_custom_certificate == True
   notify: "restart unifi"
   copy:
     src: '{{ unifi_keystore_path }}'

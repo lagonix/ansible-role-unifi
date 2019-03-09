@@ -6,7 +6,7 @@ Installs Ubiquiti Unifi controller.
 Requirements
 ------------
 
-If you want to use your own certificate, you have to specify the *unifi_keystore_path:* variable and set *unifi_custom_certificate:* to true.
+If you want to use your own certificate, you have to specify the *unifi_keystore_path:* variable and set *unifi_custom_certificate:* to True.
 
 Role Variables
 --------------
