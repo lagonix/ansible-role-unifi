@@ -2,19 +2,19 @@
 # tasks file for mrleerkotte.unifi
 - name: Add unifi gpg key to apt
   apt_key:
-    keyserver: "{{ unifi_apt_key_server }}"
-    id: "{{ unifi_apt_key_id }}"
+    keyserver: '{{ unifi_apt_key_server }}'
+    id: '{{ unifi_apt_key_id }}'
 
 - name: Add unifi repository to apt
   apt_repository:
-    repo: "{{ unifi_apt_repo }}"
-    filename: "{{ unifi_apt_repo_filename }}"
+    repo: '{{ unifi_apt_repo }}'
+    filename: '{{ unifi_apt_repo_filename }}'
     state: present
 
 - name: Install unifi prerequisites
-  with_items: "{{ unifi_prerequisites }}"
+  with_items: '{{ unifi_prerequisites }}'
   apt:
-    name: "{{ item }}"
+    name: '{{ item }}'
     state: present
     update_cache: yes
     cache_valid_time: 3600
@@ -22,20 +22,29 @@
 - name: Ubuntu Bionic detected add MongoDB gpg key to apt
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'bionic'
   apt_key:
-    keyserver: "{{ unifi_mongodb_apt_key_server }}"
-    id: "{{ unifi_mongodb_apt_key_id }}"
+    keyserver: '{{ unifi_mongodb_apt_key_server }}'
+    id: '{{ unifi_mongodb_apt_key_id }}'
 
 - name: Ubuntu Bionic detected add MongoDB repository to apt
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'bionic'
   apt_repository:
-    repo: "{{ unifi_mongodb_apt_repo }}"
-    filename: "{{ unifi_mongodb_apt_repo_filename }}"
+    repo: '{{ unifi_mongodb_apt_repo }}'
+    filename: '{{ unifi_mongodb_apt_repo_filename }}'
     state: present
 
 - name: Install unifi package
   apt:
-    name: "{{ unifi_package_name }}"
+    name: '{{ unifi_package_name }}'
     state: present
     update_cache: yes
     cache_valid_time: 3600
 
+- name: Copy keystore file
+  when: unifi_custom_certificate == true
+  notify: "restart unifi"
+  copy:
+    src: '{{ unifi_keystore_path }}'
+    dest: '{{ unifi_keystore_remote_path }}'
+    owner: unifi
+    group: unifi
+    mode: 0640
