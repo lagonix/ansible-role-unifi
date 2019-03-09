@@ -1,7 +1,7 @@
 galaxy_info:
   author: Marlon R. Leerkotte
   description: Installs Ubiquiti Unifi controller
-  role_name: unifi-controller
+  role_name: 'unifi-controller'
 
   license: BSD-3
 
